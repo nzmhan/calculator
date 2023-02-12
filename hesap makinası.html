@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+  <title>Calculator</title>
+</head>
+<body>
+  <div id='calculator'>
+    <div id='container3'>
+    <input type="text" value='0' readonly/>
+    </div>
+    <div id='container1'>
+      <span id='leftBr' onclick='insert("(")'>(</span>
+      <span id='rightBr' onclick='insert(")")'>)</span>
+      <span id='factorial' onclick='factorial()'>x!</span>
+      <span id='fibonacci' onclick='fib(inp.value)'>Fib</span>
+      <span id='sin' onclick='showSinDeg()'>sin</span>
+      <span id='cos' onclick='showCosDeg()'>cos</span> 
+      <span id='tan' onclick='showTanDeg()'>tan</span> 
+      <span id='ctg' onclick='showCtgDeg()'>ctg</span>
+      <span id='PI' onclick='showMathPI()'>&pi;</span>
+      <span id='sinh' onclick='showSinh()'>sinh</span>      
+      <span id='E' onclick='showMathE()'>e</span>
+      <span id='cosh' onclick='showCosh()'>cosh</span>
+      <span id='min' onclick='showMinInteger()'>Min</span>
+      <span id='tanh' onclick='showTanh()'>tanh</span>      
+      <br />
+      <span id='xPowY' onclick='xPowY()'>x<sup>y</sup></span>
+      <span id='arcsin' onclick='showArcsinDeg()'>sin<sup>-1</sup></span>      
+      <span id='tenPowX' onclick='tenPowX()'>10<sup>x</sup></span>
+      <span id='arccos' onclick='showArccosDeg()'>cos<sup>-1</sup></span>      
+      <span id='powE' onclick='powMathE()'>e<sup>x</sup></span>
+      <span id='arctan' onclick='showArctanDeg()'>tan<sup>-1</sup></span>
+      <span id='oneDiv' onclick='oneDivByX()'>1/x</span>
+      <span id='arcctg' onclick='showArcctgDeg()'>ctg<sup>-1</sup></span>      
+      <span id='xPow2' onclick='xPowTwo()'>x<sup>2</sup></span>
+      <span id='xPow3' onclick='xPowThree()'>x<sup>3</sup></span>      
+      <span id='twoPowX' onclick='twoPowX()'>2<sup>x</sup></span>
+      <span id='threePowX' onclick='threePowX()'>3<sup>x</sup></span>
+      <span id='max' onclick='showMaxInteger()'>Max</span>
+      <span id='ctgh' onclick='showCtgh()'>ctgh</span>      
+      <br />
+      <span id='sqrt' onclick='showSQRT()'>&#8730;</span>
+      <span id='asinh' onclick='showAsinh()'>sinh<sup>-1</sup></span>      
+      <span id='cbrt' onclick='showCBRT()'>&#8731;</span>
+      <span id='acosh' onclick='showAcosh()'>cosh<sup>-1</sup></span>      
+      <span id='root' onclick='showRoot()'>y<sub>&#8730;</sub></span>
+      <span id='atanh' onclick='showAtanh()'>tanh<sup>-1</sup></span>      
+      <span id='ln' onclick='showLn()'>ln</span>
+      <span id='actgh' onclick='showActgh()'>ctgh<sup>-1</sup></span>      
+      <span id='log2' onclick='showLog2()'>log<sub>2</sub></span>
+      <span id='log10' onclick='showLog10()'>log<sub>10</sub></span>
+      <span id='toogle'>2<sup id='sup'>nd</sup></span>      
+      <span id='random' onclick='showMathRandom()'>Rand</span>
+      <span id='rad'>Rad</span>      
+      <br />
+    </div>
+    <div id='container2'>
+      <p id='cleaner' onclick='clearValue()'>C</p>
+      <p id='delNum' onclick='deleteNumber()'>&#8592;</p>
+      <p id='percent' onclick='showPercent()'>%</p>
+      <p id='divide' onclick='insert("/")'>&divide;</p>
+      <br />
+      <p id="one" onclick='insert(7)'>7</p>
+      <p id="two" onclick='insert(8)'>8</p>
+      <p id="three" onclick='insert(9)'>9</p>
+      <p id='mult' onclick='insert("*")'>&times;</p>
+      <br />      
+      <p id="four" onclick='insert(4)'>4</p>
+      <p id="five" onclick='insert(5)'>5</p>
+      <p id="six" onclick='insert(6)'>6</p>
+      <p id='minus' onclick='insert("-")'>-</p>
+      <br />
+      <p id="seven" onclick='insert(1)'>1</p>
+      <p id="eight" onclick='insert(2)'>2</p>
+      <p id="nine" onclick='insert(3)'>3</p>
+      <p id='plus' onclick='insert("+")'>+</p>
+      <br />
+      <p id='zero' onclick='insert(0)'>0</p>
+      <p id='point' onclick='insert(".")'>,</p>
+      <p id='equal' onclick='equal()'>=</p>
+    </div>
+  </div>
+  <script type='text/javascript'>
+    let inp = document.querySelector('input');
+    let spans = document.querySelectorAll('#leftBr, #rightBr, #factorial, #fibonacci, #xPow2, #twoPowX, #log2, #PI, #E, #min, #xPowY, #tenPowX, #powE, #oneDiv, #max, #sqrt, #cbrt, #root, #ln, #random');
+    let Toogle = document.querySelector('#toogle');
+    let elements = document.querySelectorAll('#sin, #cos, #tan, #ctg, #xPow3, #threePowX, #log10, #sinh, #cosh, #tanh, #ctgh, #arcsin, #arccos, #arctan, #arcctg, #asinh, #acosh, #atanh, #actgh, #rad');
+    let Sup = document.querySelector('#sup');
+    let Rad = document.querySelector('#rad');
+    
+    Toogle.style.background = '#3a3a3a';
+    Rad.style.display = 'none';
+  
+    for(let el of elements) {
+      el.style.display = 'none'; 
+    }
+  
+    Toogle.addEventListener('click',function(e) {
+        for(let span of spans) {
+            span.style.display = (span.style.display == 'none') ? 'inline-block' : 'none';
+        }
+
+        for(let el of elements) {
+            el.style.display = (el.style.display == 'none') ? 'inline-block' : 'none';
+        }
+        
+        Toogle.style.background = Sup.style.background = e.target.style.background === 'gray' ? '' : 'gray';
+        Toogle.style.color = Sup.style.color = e.target.style.color === 'black' ? '' : 'black'
+
+    });
+    
+    Rad.addEventListener('click', function(e) {
+        Rad.innerHTML = Rad.innerHTML == 'Rad' ? 'Deg' : 'Rad';
+        
+        if (Rad.innerHTML == 'Deg') {
+            elements[0].onclick = function() {
+                inp.value = Math.sin(inp.value);
+                inputIsNaN(); 
+            }
+            
+            elements[1].onclick = function() {
+                inp.value = Math.cos(inp.value);
+                inputIsNaN(); 
+            }
+            
+            elements[2].onclick = function() {
+                inp.value = Math.tan(inp.value);
+                inputIsNaN(); 
+            }
+            
+            elements[3].onclick = function() {
+                inp.value = Math.cos(inp.value)/Math.sin(inp.value);
+                inputIsNaN();
+                inputIsInfinity();
+            }
+            
+            elements[7].onclick = function() {
+                inp.value = Math.asin(inp.value);
+                inputIsNaN(); 
+            }
+            
+            elements[8].onclick = function() {
+                inp.value = Math.acos(inp.value);
+                inputIsNaN(); 
+            }
+            
+            elements[9].onclick = function() {
+                inp.value = Math.atan(inp.value);
+                inputIsNaN(); 
+            }
+            
+            elements[10].onclick = function() {
+                inp.value = Math.atan(1/inp.value);
+                inputIsNaN(); 
+            }            
+        }
+        
+        if (Rad.innerHTML == 'Rad') {
+            elements[0].onclick = showSinDeg;
+            elements[1].onclick = showCosDeg;
+            elements[2].onclick = showTanDeg;
+            elements[3].onclick = showCtgDeg;
+            elements[7].onclick = showArcsinDeg;
+            elements[8].onclick = showArccosDeg;
+            elements[9].onclick = showArctanDeg;
+            elements[10].onclick = showArcctgDeg;
+        }
+    });
+  </script>
+  
+  
+  <center><div><font face="impact" color="red" size="4">NAZIM HAN Tarafından Kodlanmıştır.</font><div></center>
+  
+  <style>    * {
+      color: #fff;
+    }
+    
+    html, body {
+      position: fixed;
+      margin:0;
+      padding:0;
+      width:100vw;
+      height:100vh;
+      overflow:hidden;
+      user-select: none;
+    }
+
+    #calculator {
+      width: 100vw;
+      height: 100vh;
+      background: black;
+      overflow: hidden;
+    }
+    
+    #container1 {
+      position: absolute;
+      white-space: nowrap;
+      width:100vw;
+      left:0;
+      top:18vh;
+      height:24vh;
+      bottom: 0;
+      background: black;
+      padding-right:1.5vw;
+      padding-left:0.5vw;
+      padding-top:0.5vh;
+      overflow:hidden;
+    }
+    
+    #container2 {
+      position: absolute;
+      white-space: nowrap;
+      width:100vw;
+      left:0;
+      height:58vh;
+      bottom: 0;
+      background: black;
+      padding-right:1.5vw;
+      overflow:hidden;        
+    }
+    
+    #container3 {
+      position: relative;
+      top:0;
+      width:100vw;
+      height:18vh;
+      background:black;
+    }
+
+    input {
+      position:absolute;
+      margin:1vw;
+      width: 94vw;
+      height: 12vh;
+      font-size:5vh;
+      text-align: right;
+      padding-right: 2vw;
+      background: black;
+      border: none;
+    }
+
+    p {
+      display: inline-block;
+      position:relative;
+      top:0;
+      left:1vw;
+      margin: 0.5vw;
+      margin-top:1vh;
+      width:22.6vw;
+      height:8vh;
+      border-radius:20%;
+      background: transparent;
+      text-align: center;
+      padding-top:2vh;
+      cursor: pointer;
+      font-size:5vh;
+      user-select: none;
+    }
+    
+    #zero {
+      width:47vw;
+    }
+    
+    #zero, #one, #two, #three, #four, #five, #six, #seven, #eight, #nine, #point {
+      background: #005e6a;    
+    }
+    
+    #cleaner, #delNum, #percent {
+      background:#a5a5a5;
+    }
+    
+    #divide, #mult, #minus, #plus, #equal {
+        background: red;
+    }
+    
+    span {
+      vertical-align: top;
+      left:0.5vw;
+      margin:0.5vh 0.5vw;
+      text-align:center;
+      border-radius:40%;
+      padding-top:1.4vh;
+      position:relative;
+      top:-0.2vh;
+      display:inline-block;
+      width:12vw;
+      height:5.5vh;
+      background: #3a3a3a;
+      user-select: none;
+      font-size:3vh;        
+    }
+    
+    #powE {
+      position:relative;
+      top:-0.2vh;
+      height:6vh;
+      padding-top:0.8vh;
+    }
+    
+    #xPow2, #xPow3, #xPowY, #tenPowX, #twoPowX, #threePowX {
+      padding-top:1vh;
+      height:6vh;
+    }
+    
+    #cbrt {
+      position:relative;
+      top:-0.2vh;
+      height:5.8vh;
+      padding-top:1.1vh;
+    }
+    
+    #oneDiv, #max, #min {
+      height:5.5vh;
+    }
+    
+    #toogle {
+      height: 5.5vh;
+    }
+    
+    #min {
+      position: relative;
+      top: -0.1vh;
+    }
+    
+    #tanh {
+      position: relative;
+      top: -0.1vh;
+    }
+    
+    #arctan {
+      height:5.4vh;
+    }</style>
+    
+    
+    <script>    function inputIsNaN() {
+        return inp.value = inp.value == 'NaN' ? 'error' : inp.value;
+    }
+    
+    function inputIsInfinity() {
+        return inp.value = inp.value == 'Infinity' ? '\u221E' : inp.value;
+    }
+    
+    function inputIsMinusInfinity() {
+        return inp.value = inp.value == '-Infinity' ? '-\u221E' : inp.value;
+    }
+    
+    function insert(str) {
+        inp.value += str;
+        
+        if (inp.value.substr(0,1) == '0' && inp.value.length < 3) {
+            inp.value = str;
+        }
+    }
+    
+    function clearValue() {
+        inp.value = '0';
+    }
+    
+    function equal() {
+        try {
+            
+        if (inp.value) {
+        inp.value = eval(inp.value);            
+        }
+
+        if (inp.value.length > 17) {
+            let num = +inp.value;
+            num = num.toFixed(10);
+            inp.value = num;
+        }
+        
+        if (inp.value == 'undefined') {
+            inp.value = 'error';
+        }
+        
+        inputIsNaN(); 
+        inputIsInfinity();
+        inputIsMinusInfinity();
+        
+        } catch(e) {
+            inp.value = 'error';
+        }
+    }
+    
+    function showPercent() {
+        inp.value = eval((inp.value/100));
+        
+        inputIsNaN();
+    }
+    
+    function deleteNumber() {
+        let str = inp.value.slice(0, inp.value.length - 1);
+        
+        inp.value = str;
+    }
+    
+    function factorial() {
+        let result = 1;
+        
+        if (inp.value < 0) result = 'error';
+        if (inp.value == 0) result = 1;
+        
+        for(let i = 1; i <= inp.value; i++) {
+          result = result * i;
+        }
+        
+        if (inp.value.includes('*') || inp.value.includes('/') || inp.value.includes('-') || inp.value.includes('+') || inp.value.includes('.')) {
+            result = 'error';
+        }
+        
+        if (result == 'Infinity') {
+            result = '\u221E';
+        }
+        
+        if (inp.value == '\u221E' || inp.value.includes('error') || inp.value.includes('(') || inp.value.includes(')')) {
+            result = 'error';
+        }
+        
+        inp.value = result;
+    }
+    
+    function fib(n) {
+      let a = 1;
+      let b = 1;
+      
+      for (let i = 3; i <= n; i++) {
+        let c = a + b;
+        a = b;
+        b = c;
+      }
+      
+        if (inp.value.includes('*') || inp.value.includes('/') || inp.value.includes('-') || inp.value.includes('+') || inp.value.includes('.')) {
+            b = 'error';
+        }
+        
+        if (b == 'Infinity') {
+            b = '\u221E';
+        }
+        
+        if (inp.value == '\u221E' || inp.value.includes('error') || inp.value.includes('(') || inp.value.includes(')')) {
+            b = 'error';
+        }
+      
+        inp.value = b;
+      
+        inputIsInfinity();
+    }    
+    
+    function showMathPI() {
+        inp.value = Math.PI;
+    }
+    
+    function showMathE() {
+        inp.value = Math.E;
+    }
+    
+    function powMathE() {
+        inp.value = Math.E ** inp.value;
+        
+        inputIsInfinity();
+        inputIsNaN();
+    }
+    
+    function showMathRandom() {
+        inp.value = Math.random();
+    }
+    
+    function xPowTwo() {
+        inp.value = inp.value ** 2;
+        
+        inputIsInfinity();
+        inputIsNaN();
+    }
+    
+    function xPowThree() {
+        inp.value = inp.value ** 3;
+        
+        inputIsInfinity();
+        inputIsMinusInfinity();
+        inputIsNaN();    
+    }
+    
+    function xPowY() {
+        if (inp.value.startsWith('-')) {
+            inp.value = '(' + inp.value + ')';
+        }
+        
+        inp.value = inp.value + '**';
+    }
+    
+    function tenPowX() {
+        inp.value = 10 ** inp.value;
+        
+        inputIsInfinity();
+        inputIsNaN();
+    }
+    
+    function twoPowX() {
+        inp.value = 2 ** inp.value;
+        
+        inputIsInfinity();
+        inputIsNaN();        
+    }
+    
+    function threePowX() {
+        inp.value = 3 ** inp.value;
+        
+        inputIsInfinity();
+        inputIsNaN();    
+    }
+    
+    function oneDivByX() {
+        inp.value = 1/inp.value;
+        
+        inputIsInfinity();
+        inputIsNaN();
+    }
+    
+    function showMaxInteger() {
+        try {
+        let numbers = inp.value.split('.');
+        inp.value = eval(`Math.max(${numbers})`);
+        inputIsMinusInfinity();
+        } catch(e) {
+            inp.value = 'error';
+        }
+    }
+    
+    function showMinInteger() {
+        try {
+        let numbers = inp.value.split('.');
+        inp.value = eval(`Math.min(${numbers})`);
+        inputIsInfinity();
+        } catch(e) {
+            inp.value = 'error';
+        }
+    }    
+    
+    function showLog2() {
+        inp.value = Math.log2(inp.value);
+        
+        inputIsMinusInfinity();
+        inputIsNaN();
+    }
+    
+    function showLog10() {
+        inp.value = Math.log10(inp.value);
+        
+        inputIsMinusInfinity();
+        inputIsNaN();
+    }
+    
+    function showLn() {
+        inp.value = Math.log(inp.value);
+        
+        inputIsMinusInfinity();
+        inputIsNaN();
+    }
+    
+    function showSQRT() {
+        inp.value = Math.sqrt(inp.value);
+        
+        inputIsNaN();
+    }
+    
+    function showCBRT() {
+        inp.value = Math.cbrt(inp.value);
+        
+        inputIsNaN();        
+    }
+    
+    function showRoot() {
+        let result = inp.value.split('.');
+        inp.value = Math.pow(result[0], 1/result[1]);
+        
+        inputIsNaN();
+        inputIsInfinity();
+        
+        if (result.length > 2) {
+            inp.value = 'error';
+        }
+    }
+
+    function showSinDeg() {
+        let deg = inp.value;
+        deg = deg/(180/Math.PI);
+        let sin = Math.sin(deg);
+        
+        if (isNaN(deg)) {
+            sin = 'error';
+        }
+                
+        if (deg % Math.PI == 0) {
+            sin = 0;
+        }
+        
+        if ((deg/Math.PI).toString().includes('.16666') && deg > 0 && Math.floor((deg/Math.PI)) % 2 == 0 || (deg/Math.PI).toString().includes('.833333') && deg > 0 && Math.floor((deg/Math.PI)) % 2 == 0 || (deg/Math.PI).toString().includes('.16666') && deg < 0 && Math.floor(-(deg/Math.PI)) % 2 == 1 || (deg/Math.PI).toString().includes('.833333') && deg < 0 && Math.floor(-(deg/Math.PI)) % 2 == 1) {
+            sin = 0.5;
+        }
+        
+        if ((deg/Math.PI).toString().includes('.16666') && deg < 0 && Math.floor((-deg/Math.PI)) % 2 == 0 || (deg/Math.PI).toString().includes('.833333') && deg < 0 && Math.floor(-(deg/Math.PI)) % 2 == 0 || (deg/Math.PI).toString().includes('.16666') && deg > 0 && Math.floor((deg/Math.PI)) % 2 == 1 || (deg/Math.PI).toString().includes('.833333') && deg > 0 && Math.floor((deg/Math.PI)) % 2 == 1) {
+            sin = -0.5;
+        }       
+
+        inp.value = sin;
+    }
+    
+    function showCosDeg() {
+        let deg = inp.value;
+        deg = deg/(180/Math.PI);
+        let cos = Math.cos(deg);
+        
+        if (isNaN(deg)) {
+            cos = 'error';
+        }
+        
+        if ((deg/Math.PI).toString().includes('.33333') && deg > 0 && Math.floor((deg/Math.PI)) % 2 == 0 || (deg/Math.PI).toString().includes('.66666') && deg > 0 && Math.floor((deg/Math.PI)) % 2 == 1 || (deg/Math.PI).toString().includes('.33333') && deg < 0 && Math.floor(-(deg/Math.PI)) % 2 == 0 || (deg/Math.PI).toString().includes('.66666') && deg < 0 && Math.floor(-(deg/Math.PI)) % 2 == 1) {
+            cos = 0.5;
+        }
+        
+        if ((deg/Math.PI).toString().includes('.33333') && deg > 0 && Math.floor((deg/Math.PI)) % 2 == 1 || (deg/Math.PI).toString().includes('.66666') && deg > 0 && Math.floor((deg/Math.PI)) % 2 == 0 || (deg/Math.PI).toString().includes('.66666') && deg < 0 && Math.floor(-(deg/Math.PI)) % 2 == 0 || (deg/Math.PI).toString().includes('.33333') && deg < 0 && Math.floor(-(deg/Math.PI)) % 2 == 1) {
+            cos = -0.5;
+        }
+        
+        if ((deg/Math.PI).toFixed(5).toString().includes('.50000') && deg > 0 && Math.floor((deg/Math.PI).toFixed(5)) % 2 == 1 || -(deg/Math.PI).toFixed(5).toString().includes('.50000') && deg < 0 && Math.floor(-(deg/Math.PI).toFixed(5)) % 2 == 1) {
+            cos = 0;
+        }
+        
+        inp.value = cos;
+    }
+    
+    function showTanDeg() {
+        let deg = inp.value;
+        deg = deg/(180/Math.PI);
+        let tan = Math.tan(deg);
+        
+        if (isNaN(deg)) {
+            tan = 'error';
+        }
+        
+        if (deg % Math.PI == 0) {
+            tan = 0;
+        }
+        
+        if ((deg/Math.PI).toFixed(5).toString().includes('.25000') && deg > 0 || -(deg/Math.PI).toFixed(5).toString().includes('.75000') && deg < 0) {
+            tan = 1;
+        }
+        
+        if ((deg/Math.PI).toFixed(5).toString().includes('.25000') && deg < 0 || (deg/Math.PI).toFixed(5).toString().includes('.75000') && deg > 0) {
+            tan = -1;
+        }
+        
+        if ((deg/Math.PI).toFixed(5).toString().includes('.50000') && deg > 0) {
+            tan = '\u221E';
+        }
+
+        if (-(deg/Math.PI).toFixed(5).toString().includes('.50000') && deg < 0) {
+            tan = '-\u221E';
+        }
+        
+        inp.value = tan;        
+    }
+    
+    function showCtgDeg() {
+        let deg = inp.value;
+        deg = deg/(180/Math.PI);
+        let tan = Math.tan(deg);
+        let ctg = 1/tan;
+        
+        if (isNaN(deg)) {
+            ctg = 'error';
+        }
+  
+        if (-(deg) % Math.PI == 0 && deg < 0 || ctg == '-Infinity') {
+            ctg = '-\u221E';
+        }
+  
+        if (deg % Math.PI == 0 && deg > 0 || ctg == 'Infinity') {
+            ctg = '\u221E';
+        }
+        
+        if ((deg/Math.PI).toFixed(5).toString().includes('.25000') && deg > 0 || -(deg/Math.PI).toFixed(5).toString().includes('.75000') && deg < 0) {
+            ctg = 1;
+        }
+        
+        if (-(deg/Math.PI).toFixed(5).toString().includes('.25000') && deg < 0 || (deg/Math.PI).toFixed(5).toString().includes('.75000') && deg > 0) {
+            ctg = -1;
+        }
+        
+        if (-(deg/Math.PI).toFixed(5).toString().includes('.50000')) {
+            ctg = 0;
+        }
+        
+        inp.value = ctg;
+    }
+    
+    function showSinh() {
+        inp.value = Math.sinh(inp.value);
+        
+        inputIsNaN();
+        inputIsInfinity();
+        inputIsMinusInfinity();
+    }
+    
+    function showCosh() {
+        inp.value = Math.cosh(inp.value);
+        
+        inputIsNaN();
+        inputIsInfinity();
+    }
+    
+    function showTanh() {
+        inp.value = Math.tanh(inp.value);
+        
+        inputIsNaN();
+    }
+    
+    function showCtgh() {
+        inp.value = Math.cosh(inp.value)/Math.sinh(inp.value);
+
+        inputIsNaN();
+        inputIsInfinity();
+        inputIsMinusInfinity();    
+    }        
+    
+    function showArcsinDeg() {
+        let sin = inp.value;
+        let arcsin = Math.asin(sin);
+        arcsin = arcsin * (180/Math.PI);
+    
+        if (isNaN(arcsin)) {
+            arcsin = 'error';
+        }
+    
+        if (sin == 0.5) arcsin = 30;
+        if (sin == -0.5) arcsin = -30;
+    
+        inp.value = arcsin;
+    }
+    
+    function showArccosDeg() {
+        let cos = inp.value;
+        let arccos = Math.acos(cos);
+        arccos = arccos * (180/Math.PI);
+    
+        if (isNaN(arccos)) {
+            arccos = 'error';
+        }
+    
+        if (cos == 0.5) arccos = 60;
+        if (cos == -0.5) arccos = -60;
+        
+        inp.value = arccos;
+    }
+    
+    function showArctanDeg() {
+        let tan = inp.value;
+        let arctan = Math.atan(tan);
+        arctan = arctan * (180/Math.PI);
+    
+        if (isNaN(arctan)) {
+            arctan = 'error';
+        }
+        
+        inp.value = arctan;
+    }
+    
+    function showArcctgDeg() {
+        let ctg = inp.value;
+        let arcctg = Math.atan(1/ctg);
+        arcctg = (arcctg * (180/Math.PI));
+        
+        if (isNaN(arcctg)) {
+            arcctg = 'error';
+        }
+        
+        inp.value = arcctg;
+    }
+    
+    function showAsinh() {
+        let asinh = Math.asinh(inp.value);
+        inp.value = asinh;
+        
+        inputIsNaN();        
+    }
+    
+    function showAcosh() {
+        let acosh = Math.acosh(inp.value);
+        inp.value = acosh;
+        
+        inputIsNaN();         
+    }
+
+    function showAtanh() {
+        let atanh = Math.atanh(inp.value);
+        inp.value = atanh;
+        
+        inputIsNaN();
+        inputIsInfinity();
+        inputIsMinusInfinity();            
+    }
+    
+    function showActgh() {
+        let actgh = Math.atanh(1/inp.value);
+        inp.value = actgh;
+        
+        inputIsNaN();
+        inputIsInfinity();
+        inputIsMinusInfinity();         
+    }    
+</script>
+
+</body>
+
+</html>
